@@ -1,22 +1,18 @@
 ﻿using ArtificialNeuralNetwork.Genes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArtificialNeuralNetwork
 {
     [Serializable]
     public class Neuron : INeuron
     {
-        private readonly ISoma _soma;
-        private readonly IAxon _axon;
+        public ISoma Soma { get; set; }
+        public IAxon Axon { get; set; }
 
-        private Neuron(ISoma soma, IAxon axon)
+        public Neuron(ISoma soma, IAxon axon)
         {
-            _soma = soma;
-            _axon = axon;
+            Soma = soma;
+            Axon = axon;
         }
 
         public static INeuron GetInstance(ISoma soma, IAxon axon)
@@ -24,17 +20,17 @@ namespace ArtificialNeuralNetwork
             return new Neuron(soma, axon);
         }
 
-        public void Process()
+        public virtual void Process()
         {
-            _axon.ProcessSignal(_soma.CalculateSummation());
+            Axon.ProcessSignal(Soma.CalculateSummation());
         }
 
         public NeuronGene GetGenes()
         {
             return new NeuronGene
             {
-                Soma = _soma.GetGenes(),
-                Axon = _axon.GetGenes()
+                Soma = Soma.GetGenes(),
+                Axon = Axon.GetGenes()
             };
         }
     }

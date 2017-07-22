@@ -1,24 +1,20 @@
 ﻿using ArtificialNeuralNetwork.Genes;
-using ArtificialNeuralNetwork.SummationFunctions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArtificialNeuralNetwork
 {
     public class Soma : ISoma
     {
-        private readonly IList<Synapse> _dendrites;
-        private readonly ISummationFunction _summationFunction;
-        private readonly double _bias;
+        public IList<Synapse> Dendrites { get; set; }
+        public ISummationFunction SummationFunction { get; set; }
+        public double Bias { get; set; }
+        public double Value { get; protected set; }
 
-        private Soma(IList<Synapse> dendrites, ISummationFunction summationFunction, double bias)
+        public Soma(IList<Synapse> dendrites, ISummationFunction summationFunction, double bias)
         {
-            _dendrites = dendrites;
-            _summationFunction = summationFunction;
-            _bias = bias;
+            Dendrites = dendrites;
+            SummationFunction = summationFunction;
+            Bias = bias;
         }
 
         public static ISoma GetInstance(IList<Synapse> dendrites, ISummationFunction summationFunction, double bias)
@@ -26,17 +22,17 @@ namespace ArtificialNeuralNetwork
             return new Soma(dendrites, summationFunction, bias);
         }
 
-        public double CalculateSummation()
+        public virtual double CalculateSummation()
         {
-            return _summationFunction.CalculateSummation(_dendrites, _bias);
+            return Value = SummationFunction.CalculateSummation(Dendrites, Bias);
         }
 
         public SomaGene GetGenes()
         {
             return new SomaGene
             {
-                Bias = _bias,
-                SummationFunction = _summationFunction.GetType()
+                Bias = Bias,
+                SummationFunction = SummationFunction.GetType()
             };
         }
     }

@@ -7,14 +7,14 @@ namespace ArtificialNeuralNetwork
 {
     public class Axon : IAxon
     {
-        private readonly IList<Synapse> _terminals;
-        private readonly IActivationFunction _activationFunction;
-        public double Value { get; private set; }
+        public IList<Synapse> Terminals { get; set; }
+        public IActivationFunction ActivationFunction { get; set; }
+        public double Value { get; protected set; }
 
-        private Axon(IList<Synapse> terminals, IActivationFunction activationFunction)
+        public Axon(IList<Synapse> terminals, IActivationFunction activationFunction)
         {
-            _activationFunction = activationFunction;
-            _terminals = terminals;
+            ActivationFunction = activationFunction;
+            Terminals = terminals;
             Value = 0.0;
             foreach (var synapse in terminals)
             {
@@ -27,22 +27,22 @@ namespace ArtificialNeuralNetwork
             return new Axon(terminals, activationFunction);
         }
 
-        public void ProcessSignal(double signal)
+        public virtual void ProcessSignal(double signal)
         {
             Value = calculateActivation(signal);
         }
 
         internal double calculateActivation(double signal)
         {
-            return _activationFunction.CalculateActivation(signal);
+            return ActivationFunction.CalculateActivation(signal);
         }
 
         public AxonGene GetGenes()
         {
             return new AxonGene
             {
-                ActivationFunction = _activationFunction.GetType(),
-                Weights = _terminals.Select(d => d.Weight).ToList()
+                ActivationFunction = ActivationFunction.GetType(),
+                Weights = Terminals.Select(d => d.Weight).ToList()
             };
         }
 

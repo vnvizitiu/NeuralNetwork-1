@@ -44,12 +44,16 @@
     <Compile Include="ActivationFunctions\IActivationFunction.cs" />
     <Compile Include="ActivationFunctions\IdentityActivationFunction.cs" />
     <Compile Include="ActivationFunctions\InverseActivationFunction.cs" />
+    <Compile Include="ActivationFunctions\LeakyRectifiedLinearActivationFunction.cs" />
+    <Compile Include="ActivationFunctions\RectifiedLinearActivationFunction.cs" />
     <Compile Include="ActivationFunctions\SechActivationFunction.cs" />
     <Compile Include="ActivationFunctions\SigmoidActivationFunction.cs" />
     <Compile Include="ActivationFunctions\SinhActivationFunction.cs" />
     <Compile Include="ActivationFunctions\StepActivationFunction.cs" />
     <Compile Include="ActivationFunctions\TanhActivationFunction.cs" />
     <Compile Include="Axon.cs" />
+    <Compile Include="Factories\INeuronFactory.cs" />
+    <Compile Include="Factories\NeuronFactory.cs" />
     <Compile Include="WeightInitializer\ConstantWeightInitializer.cs" />
     <Compile Include="Factories\AxonFactory.cs" />
     <Compile Include="Factories\IAxonFactory.cs" />
